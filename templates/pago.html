@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Pago</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Barra de navegación con enlace al inicio -->
+    <nav class="navbar navbar-dark bg-primary" id="inicio">
+        <a class="navbar-brand" href="/">PowerUP</a> <!-- Ruta modificada para redirigir al inicio -->
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 col-md-8 order-2 order-md-1">
+                <h4 class="mb-3">Dirección de Envío</h4>
+                <form action="">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 mb-3">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="col-12 col-sm-6 mb-3">
+                            <label for="direccion">Dirección</label>
+                            <input type="text" class="form-control" id="direccion" name="direccion" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tarjeta">Número de tarjeta</label>
+                        <input type="text" class="form-control" id="tarjeta" name="tarjeta" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fecha">Fecha de vencimiento</label>
+                        <input type="text" class="form-control" id="fecha" name="fecha" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cvv">Código CVV</label>
+                        <input type="text" class="form-control" id="cvv" name="cvv" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Pagar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-primary text-white text-center py-3 mt-4">
+        <!-- Enlace para ir al inicio (index.html) -->
+        <a href="/index.html" class="text-white"> <!-- Aquí hemos cambiado el enlace -->
+            <p>&copy; 2024 Productos PowerUP. Todos los derechos reservados.</p>
+        </a>
+        <p>Desarrollado por Victor Mario Rios Giraldo</p>
+    </footer>
+</body>
+</html>

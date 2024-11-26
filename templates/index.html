@@ -1,0 +1,78 @@
+<!-- Declaración del tipo de documento HTML -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Definición de la codificación de caracteres -->
+    <meta charset="UTF-8">
+    <!-- Configuración de la vista para que sea responsiva -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Compatibilidad con Internet Explorer -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Título de la página -->
+    <title>Product App</title>
+    <!-- Enlace a la hoja de estilo de Bootstrap desde Bootswatch -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+    <!-- Enlace a la hoja de estilo personalizada -->
+    <link rel="stylesheet" href="/static/styles.css">
+    <!-- Enlace a la librería de iconos Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        /* Aseguramos que el body ocupe todo el alto de la pantalla */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        /* Usamos flexbox en el body para que el footer se quede al final de la página */
+        body {
+            display: flex;
+            flex-direction: column; /* Coloca los elementos en columna */
+            font-family: Arial, sans-serif; /* Fuente de la página */
+            max-width: 1200px; /* Máxima anchura del contenido */
+            margin: 0 auto; /* Centra el contenido */
+            padding: 20px; /* Espaciado interno */
+        }
+
+        /* Estilo para el footer */
+        footer {
+            margin-top: auto; /* Asegura que el footer esté siempre al final de la página */
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <!-- Enlace al logo de la barra de navegación -->
+        <a class="navbar-brand" href="#">PowerUP</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <!-- Elemento de navegación para ingresar un producto -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/templateProductsTable">Ingresar producto</a>
+                </li><li class="nav-item">
+                    <a class="nav-link" href="/tienda">Tienda</a>
+                    
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contenido principal de la página -->
+    <div class="content">
+        <!-- Título principal de la página -->
+        <h1>Bienvenido a PowerUP</h1>
+    </div>
+
+    <!-- Footer de la página -->
+    <footer class="bg-primary text-white text-center py-3">
+        <!-- Información del copyright -->
+        <p>&copy; 2024 Productos PowerUP. Todos los derechos reservados.</p>
+        <!-- Información del desarrollador -->
+        <p>Desarrollado por Victor Mario Rios Giraldo</p>
+    </footer>
+
+    <!-- Carga del archivo JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

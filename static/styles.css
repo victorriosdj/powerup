@@ -1,0 +1,150 @@
+/* Establecer el color principal como azul */
+:root {
+    --main-color: #007bff;  /* Azul */
+    --bg-color: #f8f9fa;    /* Fondo claro */
+    --text-color: #333;     /* Color de texto oscuro */
+}
+
+/* Estilos generales */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--bg-color); /* Fondo claro en toda la página */
+    color: var(--text-color); /* Texto oscuro */
+}
+
+/* Barra de navegación */
+.navbar {
+    background-color: var(--main-color) !important; /* Azul */
+    color: white !important;
+}
+
+/* Asegurar que los enlaces en la navbar sean visibles y claros */
+.navbar-nav .nav-link {
+    color: white !important;
+}
+
+/* Cambiar el color de fondo y texto de los botones */
+.btn-primary {
+    background-color: var(--main-color) !important;
+    border-color: var(--main-color) !important;
+}
+
+/* Pie de página */
+footer {
+    margin-top: auto;
+    background-color: var(--main-color); /* Azul */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Tabla de productos */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f1f1f1;  /* Fondo claro en los encabezados */
+    color: var(--text-color);
+}
+
+/* Formularios */
+.form-control {
+    border: 1px solid #ddd;  /* Borde gris claro */
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* Botones */
+button, .btn {
+    background-color: var(--main-color);
+    border: none;
+    color: white;
+}
+
+button:hover, .btn:hover {
+    background-color: #0056b3;  /* Oscurecer el color del botón al pasar el ratón */
+}
+
+/* Links */
+a {
+    color: var(--main-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Tarjetas */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: var(--main-color);
+    color: white;
+}
+
+/* Alertas */
+.alert {
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.alert-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Ajustes de imágenes */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Contenedor principal */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilo de las filas */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Estilo de las columnas */
+.col {
+    flex: 1;
+    min-width: 300px;
+}

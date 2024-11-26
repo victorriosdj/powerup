@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar Producto</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <h4 class="navbar-brand">Productos PowerUP</h4>
+    </nav>
+
+    <div class="container">
+        <div class="row first-row">
+            <div class="col-md-6">
+                <div class="card text-white bg-secondary mt-4" style="max-width: 20rem;">
+                    <div class="card-header">
+                        <h4>Añadir Producto</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="productForm" method="post" action="/register_product">
+                            <div class="form-group">
+                                <input type="text" id="productName" class="form-control" placeholder="Nombre de Producto" name="nom_prod">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="productCatg" class="form-control" placeholder="Categoría" name="catg_prod">
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="productPrice" class="form-control" step="0.01" placeholder="Precio" name="precio_prod">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Grabar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="productList" class="col-md-6"></div>
+        </div>
+
+        <div class="section mt-4">
+            <h2>Listado de Productos</h2>
+            {% if successDelete %}
+            <div class="alert alert-success">
+                {{ successDelete }}
+            </div>
+            {% endif %}
+            <table id="productos-tabla">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                    <tr>
+                        <td>{{ producto.id_producto }}</td>
+                        <td>{{ producto.nom_prod }}</td>
+                        <td>{{ producto.catg_prod }}</td>
+                        <td>{{ producto.precio_prod }}</td>
+                        <td>
+                            <a class="btn-danger delete-btn" type="button" data-id="{{ producto.id_producto }}">
+                                <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                            </a>
+                            <a class="btn-primary edit-btn" data-id="{{ producto.id_producto }}" data-nom="{{ producto.nom_prod }}" data-catg="{{ producto.catg_prod }}" data-precio="{{ producto.precio_prod }}">
+                                <i class="fa-solid fa-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="bg-primary text-white text-center py-3 mt-4">
+        <p>&copy; 2024 Productos PowerUP. Todos los derechos reservados.</p>
+        <p>Desarrollado por Victor Mario Rios Giraldo</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
