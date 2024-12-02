@@ -24,3 +24,12 @@ Base = declarative_base()
 # `autocommit=False` significa que las transacciones no se confirman automáticamente; `autoflush=False` significa que las consultas no se ejecutan de forma automática.
 # `bind=engine` vincula la sesión al motor de base de datos que definimos previamente.
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Dependencia para obtener la sesión de base de datos
+def get_db():
+    # Abrir una nueva sesión de base de datos
+    db = SessionLocal()
+    try:
+        yield db  # Retornar la sesión de base de datos
+    finally:
+        db.close()  # Cerrar la sesión de base de datos cuando termine

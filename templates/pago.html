@@ -7,16 +7,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <!-- Barra de navegación con enlace al inicio -->
-    <nav class="navbar navbar-dark bg-primary" id="inicio">
-        <a class="navbar-brand" href="/">PowerUP</a> <!-- Ruta modificada para redirigir al inicio -->
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">PowerUP</a>
     </nav>
 
     <div class="container mt-5">
         <div class="row">
+            <!-- Resumen del pedido -->
+            <div class="col-12 col-md-4 order-1 order-md-2 mb-3">
+                <h4 class="mb-3">Tu Pedido</h4>
+                <ul class="list-group mb-3" id="lista-productos"></ul>
+                <h5 class="mt-3">Total: $<span id="total"></span></h5>
+            </div>
+
+            <!-- Formulario de pago -->
             <div class="col-12 col-md-8 order-2 order-md-1">
                 <h4 class="mb-3">Dirección de Envío</h4>
-                <form action="">
+                <form id="form-pago">
                     <div class="row">
                         <div class="col-12 col-sm-6 mb-3">
                             <label for="nombre">Nombre</label>
@@ -29,28 +37,137 @@
                     </div>
                     <div class="mb-3">
                         <label for="tarjeta">Número de tarjeta</label>
-                        <input type="text" class="form-control" id="tarjeta" name="tarjeta" required>
+                        <input type="text" class="form-control" id="tarjeta" name="tarjeta" required pattern="\d{16}" title="El número de tarjeta debe tener 16 dígitos.">
                     </div>
                     <div class="mb-3">
-                        <label for="fecha">Fecha de vencimiento</label>
-                        <input type="text" class="form-control" id="fecha" name="fecha" required>
+                        <label for="fecha">Fecha de vencimiento (MM/AA)</label>
+                        <input type="text" class="form-control" id="fecha" name="fecha" required pattern="\d{2}/\d{2}" title="Formato esperado: MM/AA.">
                     </div>
                     <div class="mb-3">
                         <label for="cvv">Código CVV</label>
-                        <input type="text" class="form-control" id="cvv" name="cvv" required>
+                        <input type="text" class="form-control" id="cvv" name="cvv" required pattern="\d{3,4}" title="El CVV debe tener 3 o 4 dígitos.">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Pagar</button>
+                    <button type="button" id="btn-pagar" class="btn btn-primary btn-lg btn-block">Pagar</button>
                 </form>
             </div>
         </div>
     </div>
 
     <footer class="bg-primary text-white text-center py-3 mt-4">
-        <!-- Enlace para ir al inicio (index.html) -->
-        <a href="/index.html" class="text-white"> <!-- Aquí hemos cambiado el enlace -->
-            <p>&copy; 2024 Productos PowerUP. Todos los derechos reservados.</p>
-        </a>
+        <p>&copy; 2024 Productos PowerUP. Todos los derechos reservados.</p>
         <p>Desarrollado por Victor Mario Rios Giraldo</p>
     </footer>
+
+    <script>
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const listaProductos = document.getElementById('lista-productos');
+        const totalElement = document.getElementById('total');
+        const btnPagar = document.getElementById('btn-pagar');
+
+        function mostrarCarrito() {
+            listaProductos.innerHTML = '';
+            let total = 0;
+
+            carrito.forEach(item => {
+                const [nombre, precio] = item.split('$');
+                const precioNumerico = parseInt(precio.replace(',', ''));
+                total += precioNumerico;
+
+                const li = document.createElement('li');
+                li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'lh-condensed');
+                li.innerHTML = `
+                    <div>
+                        <h6 class="my-0">${nombre.trim()}</h6>
+                    </div>
+                    <span class="text-muted">$${precioNumerico.toLocaleString()}</span>
+                `;
+                listaProductos.appendChild(li);
+            });
+
+            totalElement.textContent = total.toLocaleString();
+        }
+
+        mostrarCarrito();
+
+        btnPagar.addEventListener('click', async () => {
+        const nombre = document.getElementById('nombre').value.trim();
+        const direccion = document.getElementById('direccion').value.trim();
+        const tarjeta = document.getElementById('tarjeta').value.trim();
+        const fecha = document.getElementById('fecha').value.trim();
+        const cvv = document.getElementById('cvv').value.trim();
+
+        if (carrito.length === 0) {
+            alert('Tu carrito está vacío.');
+            return;
+        }
+
+        const productos = carrito.map(item => {
+            const [nombre, precio] = item.split('$');
+            return {
+                nombre: nombre.trim(),
+                precio: parseFloat(precio.replace(',', '')),
+            };
+        });
+
+        const total = productos.reduce((sum, p) => sum + p.precio, 0);
+
+        // Validar si todos los campos están completos
+        if (!nombre || !direccion || !tarjeta || !fecha || !cvv) {
+            alert("Por favor completa todos los campos.");
+            return;
+        }
+
+        // Deshabilitar botón de pago durante el proceso
+        btnPagar.disabled = true;
+        btnPagar.textContent = 'Procesando...';
+
+        try {
+            const response = await fetch('/guardarPedido', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    productos: productos,  // Asegúrate que el servidor espera este campo como un arreglo de objetos
+                    total: total,           // Calculando el total en el frontend
+                    cliente: {
+                        nombre: nombre,
+                        direccion: direccion,
+                        tarjeta: tarjeta,    // Si es necesario enviar el número de tarjeta (cuidado con seguridad)
+                        fecha: fecha,        // Formato MM/AA
+                        cvv: cvv,            // CVV
+                    },
+                }),
+            });
+
+            console.log('Datos enviados:', {
+                productos: productos,
+                total: total,
+                cliente: {
+                    nombre: nombre,
+                    direccion: direccion,
+                    tarjeta: tarjeta,
+                    fecha: fecha,
+                    cvv: cvv,
+                },
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert('Pedido registrado con éxito. Pedido ID: ' + data.pedido_id);
+                localStorage.removeItem('carrito');
+                window.location.href = '/';
+            } else {
+                alert('Error al guardar el pedido: ' + data.mensaje);
+            }
+        } catch (error) {
+            console.error('Error en la solicitud:', error);
+            alert('No se pudo completar la solicitud. Inténtalo de nuevo más tarde.');
+        } finally {
+            btnPagar.disabled = false;
+            btnPagar.textContent = 'Pagar';
+        }
+    });
+    </script>
 </body>
 </html>

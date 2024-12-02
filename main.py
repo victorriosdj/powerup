@@ -1,6 +1,7 @@
 # Importamos las dependencias necesarias
 from fastapi import FastAPI, Request  # FastAPI para crear la aplicación y Request para manejar peticiones
 from routers.products import getProductsRouter  # Importamos las rutas del módulo de productos
+from routers.orders import routerOrders
 from fastapi.templating import Jinja2Templates  # Para trabajar con plantillas HTML mediante Jinja2
 from fastapi.staticfiles import StaticFiles  # Para servir archivos estáticos como CSS, JS, imágenes
 from dotenv import load_dotenv  # Para cargar variables de entorno desde un archivo .env
@@ -20,6 +21,7 @@ async def root(request: Request):
 
 # Incluir las rutas definidas en el router de productos
 app.include_router(getProductsRouter)
+app.include_router(routerOrders)
 
 # Rutas estáticas: Monta la carpeta "static" en la URL "/static"
 # Los archivos en la carpeta "static" se pueden servir directamente (como CSS, JS, imágenes, etc.)
