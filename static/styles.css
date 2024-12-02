@@ -24,7 +24,7 @@ body {
 
 /* Barra de navegación */
 .navbar {
-    background-color: var(--main-color) !important; /* Azul */
+    background-color:  #047cfc  !important; /* Azul */
     color: white !important;
 }
 
@@ -42,7 +42,7 @@ body {
 /* Pie de página */
 footer {
     margin-top: auto;
-    background-color: var(--main-color); /* Azul */
+    background-color:  #047cfc ; /* Azul */
     color: white;
     text-align: center;
     padding: 10px 0;
